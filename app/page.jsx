@@ -7,8 +7,7 @@ const Home = () => {
     flex-col">
  <h1 className="head_text text-center">Discover & Share
  <br className="max-md:hidden"/>
- <span className="orange_gradient
- text-center">AI-Powered Prompts</span>
+ <span className="text-lg md:text-base orange_gradient text-center">AI-Powered Prompts</span>
  </h1>
  <p className="desc text-center">
   Promptopia is an open-source AI promoting
