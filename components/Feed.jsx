@@ -1,9 +1,10 @@
 'use client'
 import { useState, useEffect } from "react";
-
+import { useSession } from "next-auth/react";
 import PromptCard from './PromptCard'
+import { useRouter } from "next/navigation";
 
-const PromptCardList = ({ data, handleTagClick }) => {
+const PromptCardList = ({ data, handleTagClick, handlePromptClick }) => {
   return (
     <div className="mt-16 prompt_layout">
   {data.map((post) => {
@@ -12,6 +13,7 @@ const PromptCardList = ({ data, handleTagClick }) => {
         key={post._id}
         post={post}
         handleTagClick={handleTagClick}
+        handlePromptClick={handlePromptClick}
       />
     );
   })}
@@ -21,9 +23,12 @@ const PromptCardList = ({ data, handleTagClick }) => {
 
 const Feed = () => {
 
+  const { data: session } = useSession();
   const [searchText, setSearchText] = useState('');
   const [searchSubmitState, setSearchSubmitState] = useState(false);
+  const router = useRouter();
   const [posts, setPosts] = useState([]);
+
 
   const handleSearchChange = (e) => {
     e.preventDefault();
@@ -33,6 +38,16 @@ const Feed = () => {
   const searchSubmit = () => {
     setSearchSubmitState(true);
 
+  }
+
+  const handlePromptClick = (post) => {
+    if(session){
+      if(session.user.id === post.creator._id){
+        router.push('/profile')
+      } else {
+        router.push(`/view-user?id=${post.creator._id}`)
+      }
+    }
   }
 
   useEffect(() => {
@@ -76,6 +91,7 @@ const Feed = () => {
 
       <PromptCardList 
       data={posts}
+      handlePromptClick={handlePromptClick}
       handleTagClick={() => {}}/>
     </section>
   )

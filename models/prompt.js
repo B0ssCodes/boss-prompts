@@ -13,8 +13,12 @@ const PromptSchema = new Schema({
     tag: {
         type: String,
         required: [true, 'Tag is required.']
+    
     }
 });
+
+// Add a text index to the 'prompt' and 'tag' fields
+PromptSchema.index({ prompt: 'text', tag: 'text' });
 
 const Prompt = models.Prompt || model('Prompt', PromptSchema);
 
