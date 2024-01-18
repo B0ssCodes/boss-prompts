@@ -13,7 +13,6 @@ const PromptSchema = new Schema({
     tag: {
         type: String,
         required: [true, 'Tag is required.']
-    
     }
 });
 
