@@ -39,7 +39,7 @@ const Form = ({
         <label>
           <span className="font-satoshi font-semibold text-base text-gray-700">
             Tag {' '} 
-            <span className="font-normal">(#product, #webdevelopment, #idea ) Don't put a # !</span>
+            <span className="font-normal">(product, webdevelopment, idea ) Don&apos;t put a # !</span>
           </span>
 
           <input
