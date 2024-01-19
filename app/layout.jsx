@@ -16,16 +16,17 @@ const RootLayout = ({children}) => {
   return (
     <html lang="en">
         <head>
-        <meta name="google-adsense-account" content="ca-pub-1814557852881278" />
+        <meta name="google-adsense-account" content="ca-pub-3861449097607847"/>
         </head>
         <body>
     <Provider>
-      <Script 
-        id="adsbygoogle" 
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1814557852881278"
-        strategy="beforeInteractive"
-        crossorigin="anonymous"
-      />
+    <Script 
+    id="adsbygoogle" 
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3861449097607847"
+    strategy="beforeInteractive"
+    crossorigin="anonymous"
+    async
+  />
       <Script 
         id="googletagmanager" 
         async 
