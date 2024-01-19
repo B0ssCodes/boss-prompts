@@ -1,77 +1,45 @@
 'use client'
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import PromptCard from './PromptCard'
 import { useRouter } from "next/navigation";
+import Loading from "./Loading.jsx"
 
-const PromptCardList = ({ data, handleTagClick, handlePromptClick }) => {
-  return (
-    <div className="mt-16 prompt_layout">
-  {data.map((post) => {
-    return (
-      <PromptCard
-        key={post._id}
-        post={post}
-        handleTagClick={handleTagClick}
-        handlePromptClick={handlePromptClick}
-      />
-    );
-  })}
-</div>
-  )
-}
+import PromptCard from './PromptCard'
+import PromptCardList  from "./PromptCardList";
 
 const Feed = () => {
 
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   const { data: session } = useSession();
   const [searchText, setSearchText] = useState('');
-  const [searchSubmitState, setSearchSubmitState] = useState(false);
-  const router = useRouter();
   const [posts, setPosts] = useState([]);
-
 
   const handleSearchChange = (e) => {
     e.preventDefault();
     setSearchText(e.target.value);
   }
   
-  const searchSubmit = () => {
-    setSearchSubmitState(true);
-
-  }
-
-  const handlePromptClick = (post) => {
+  const searchSubmit = (e) => {
+    e.preventDefault();
     if(session){
-      if(session.user.id === post.creator._id){
-        router.push('/profile')
-      } else {
-        router.push(`/view-user?id=${post.creator._id}`)
-      }
+    router.push(`/search-result?search=${searchText}`)
+    }
+    else{
+      alert("You need to be logged in to search!")
     }
   }
 
-  useEffect(() => {
 
-    if(searchSubmitState){
-      const fetchSearchPosts = async () => {
-        const response = await fetch(`/api/prompt/${searchText}`);
-        const data = await response.json();
-
-        setPosts(data);
-      }
-      fetchSearchPosts();
-    }
-
-  }, [searchSubmitState])
 
   useEffect(() => {
     const fetchPosts = async () => {
+      setIsLoading(true);
       const response = await fetch ('/api/prompt');
       const data = await response.json();
       
-    
       setPosts(data);
-      console.log(posts)
+      setIsLoading(false);
     }
 
     fetchPosts();
@@ -88,11 +56,15 @@ const Feed = () => {
         required
         className="search_input peer"/>
       </form>
+     
+      
+      {isLoading && <Loading />}
+     
 
-      <PromptCardList 
+     {!isLoading && <PromptCardList 
       data={posts}
-      handlePromptClick={handlePromptClick}
-      handleTagClick={() => {}}/>
+      router={router}
+      />}
     </section>
   )
 }
