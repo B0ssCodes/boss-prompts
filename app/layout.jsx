@@ -1,3 +1,5 @@
+
+
 import Script from 'next/script';
 
 import '../styles/globals.css'
@@ -15,21 +17,32 @@ const RootLayout = ({children}) => {
     <html lang="en">
         <head>
         <meta name="google-adsense-account" content="ca-pub-1814557852881278" />
-        <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1814557852881278"
-     crossorigin="anonymous"></Script>
-     <Script async src="https://www.googletagmanager.com/gtag/js?id=G-3CY9XEL1Q8"></Script>
-     <Script strategy="afterInteractive">
-  {`
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(&apos;arguments&apos;)}
-    gtag(&apos;js&apos;, new Date());
-
-    gtag(&apos;config&apos;, &apos;G-3CY9XEL1Q8&apos;);
-  `}
-</Script>
         </head>
         <body>
     <Provider>
+      <Script 
+        id="adsbygoogle" 
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1814557852881278"
+        strategy="beforeInteractive"
+        crossorigin="anonymous"
+      />
+      <Script 
+        id="googletagmanager" 
+        async 
+        src="https://www.googletagmanager.com/gtag/js?id=G-3CY9XEL1Q8"
+      />
+      <Script 
+        id="gtag-config" 
+        strategy="afterInteractive"
+      >
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push('arguments')}
+          gtag('js', new Date());
+
+          gtag('config', 'G-3CY9XEL1Q8');
+        `}
+      </Script>
       
       <div className="main">
         <div className="gradient" />
