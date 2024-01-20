@@ -9,7 +9,7 @@ const handler = NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    })
+    }),
   ],
   async session({ session }) {
     // store the user id from MongoDB to session
@@ -20,32 +20,31 @@ const handler = NextAuth({
       // Handle the case where the user is not found in the database
       console.error('User not found in database:', session.user.email);
     }
-  
+
     return session;
   },
-    async signIn({ account, profile, user, credentials }) {
-      try {
-        await connectToDB();
+  async signIn({ account, profile, user, credentials }) {
+    try {
+      await connectToDB();
 
-        // check if user already exists
-        const userExists = await User.findOne({ email: profile.email });
+      // check if user already exists
+      const userExists = await User.findOne({ email: profile.email });
 
-        // if not, create a new document and save user in MongoDB
-        if (!userExists) {
-          await User.create({
-            email: profile.email,
-            username: profile.name.replace(" ", "").toLowerCase(),
-            image: profile.picture,
-          });
-        }
-
-        return true
-      } catch (error) {
-        console.log("Error checking if user exists: ", error.message);
-        return false
+      // if not, create a new document and save user in MongoDB
+      if (!userExists) {
+        await User.create({
+          email: profile.email,
+          username: profile.name.replace(" ", "").toLowerCase(),
+          image: profile.picture,
+        });
       }
-    },
-  }
-})
 
-export { handler as GET, handler as POST }
+      return true;
+    } catch (error) {
+      console.log("Error checking if user exists: ", error.message);
+      return false;
+    }
+  },
+});
+
+export { handler as GET, handler as POST };
