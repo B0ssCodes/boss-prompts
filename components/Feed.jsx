@@ -35,15 +35,20 @@ const Feed = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       setIsLoading(true);
-      const response = await fetch ('/api/prompt');
-      const data = await response.json();
-      
-      setPosts(data);
-      setIsLoading(false);
+      try {
+        const response = await fetch ('/api/prompt');
+        const data = await response.json();
+        
+        setPosts(data);
+      } catch (error) {
+        console.error('Failed to fetch posts:', error);
+      } finally {
+        setIsLoading(false);
+      }
     }
-
     fetchPosts();
-  }, [])
+   } ,[])
+
 
   return (
     <section className="feed">
