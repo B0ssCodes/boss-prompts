@@ -31,9 +31,10 @@ const Feed = () => {
   }
 
 
-  
+
+  useEffect(() => {
     const fetchPosts = async () => {
-      if (posts.length > 0) return; 
+      if (posts.length > 0) return; // If posts already exist, don't fetch again
   
       setIsLoading(true);
       try {
@@ -49,11 +50,8 @@ const Feed = () => {
         setIsLoading(false);
       }
     }
-
-    useEffect(() => {
-      fetchPosts();
-    }, [])
-    
+    fetchPosts();
+  }, []) // Empty dependency array means this effect runs once on mount
 
 
   return (
