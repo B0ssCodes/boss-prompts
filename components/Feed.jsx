@@ -37,7 +37,7 @@ const Feed = () => {
       setIsLoading(true);
       try {
         console.log("fetching posts");
-        const response = await fetch ('/api/prompt');
+        const response = await fetch('/api/prompt', { cache: 'no-store' });
         const data = await response.json();
         console.log(data);
         
