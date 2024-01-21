@@ -12,6 +12,7 @@ export const GET = async (request) => {
             }
         })
     } catch(error){
-        return new Response("Failed to fetch all prompts", { status: 500 }) 
+        console.error(error); // Log the error to the console
+        return new Response(error.message || "Failed to fetch all prompts", { status: 500 }) 
     }
 }
