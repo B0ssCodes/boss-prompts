@@ -7,8 +7,6 @@ import Loading from "./Loading.jsx"
 import PromptCard from './PromptCard'
 import PromptCardList  from "./PromptCardList";
 
-
-
 const Feed = () => {
 
   const [isLoading, setIsLoading] = useState(false);
@@ -33,8 +31,7 @@ const Feed = () => {
   }
 
 
-
-  useEffect(() => {
+  
     const fetchPosts = async () => {
       if (posts.length > 0) return; 
   
@@ -52,8 +49,11 @@ const Feed = () => {
         setIsLoading(false);
       }
     }
-    fetchPosts();
-  }, []) 
+
+    useEffect(() => {
+      fetchPosts();
+    }, [])
+    
 
 
   return (
