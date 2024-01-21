@@ -7,11 +7,11 @@ const Home = () => {
     flex-col">
  <h1 className="head_text text-center">Discover & Share
  <br className="max-md:hidden"/>
- <span className="orange_gradient
- text-center">AI-Powered Prompts</span>
+ <div className="orange_gradient
+ text-center ">AI-Powered Prompts</div>
  </h1>
  <p className="desc text-center">
-  Promptopia is an open-source AI promoting
+  Boss Prompts is an open-source AI promoting
   tool for modern world to discover,
   create and share creative prompts
  </p>

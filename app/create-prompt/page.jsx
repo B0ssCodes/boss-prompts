@@ -16,8 +16,9 @@ const CreatePrompt = () => {
 
     const createPrompt = async (e) => {
         e.preventDefault();
-        setSubmitting(true);
-
+        
+        if(session) {
+            setSubmitting(true);
         try{
             const response = await fetch('/api/prompt/new',
             {
@@ -38,6 +39,12 @@ const CreatePrompt = () => {
         } finally {
             setSubmitting(false)
         }
+
+    }
+    else {
+        alert("You need to be logged in to create a prompt!")
+    
+    }
     }
   return (
     <Form 

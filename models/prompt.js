@@ -17,6 +17,9 @@ const PromptSchema = new Schema({
     }
 });
 
+// Add a text index to the 'prompt' and 'tag' fields
+PromptSchema.index({ prompt: 'text', tag: 'text' });
+
 const Prompt = models.Prompt || model('Prompt', PromptSchema);
 
 export default Prompt;
