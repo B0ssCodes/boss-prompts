@@ -15,13 +15,8 @@ const handler = NextAuth({
     async session({ session }) {
       // store the user id from MongoDB to session
       const sessionUser = await User.findOne({ email: session.user.email });
-      if (sessionUser) {
-        session.user.id = sessionUser._id.toString();
-      } else {
-        // Handle the case where the user is not found in the database
-        console.error('User not found in database:', session.user.email);
-      }
-    
+      session.user.id = sessionUser._id.toString();
+
       return session;
     },
     async signIn({ account, profile, user, credentials }) {
