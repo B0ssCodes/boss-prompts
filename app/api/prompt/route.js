@@ -1,4 +1,4 @@
-import connectToDB from '@utils/database';
+import { connectToDB } from '@utils/database';
 import Prompt from '@models/prompt';
 
 export const GET = async (request) => {
@@ -11,11 +11,10 @@ export const GET = async (request) => {
             status: 200,
             headers: {
                 'Content-Type': 'application/json',
-                'Cache-Control': 'no-store'
+                'Cache-Control': 'no-store, max-age=0',
             }
         })
     } catch(error){
-        console.error(error); // Log the error to the console
-        return new Response(error.message || "Failed to fetch all prompts", { status: 500 }) 
+        return new Response("Failed to fetch all prompts", { status: 500 }) 
     }
 }
